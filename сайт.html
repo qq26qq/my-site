@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>как создать сайт · минимализм</title>
+  <!-- чистый, воздушный стиль: только свет и сетка -->
+  <style>
+    /* сброс и базовые настройки */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f8fafc;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: #0b1c2c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    /* главный контейнер — всё по центру, не шире 900px */
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* заголовок — минималистичный, строгий, но мягкий */
+    h1 {
+      font-weight: 450;
+      font-size: 3.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+      color: #0a1e2b;
+      border-bottom: 1.5px solid #d0d9e2;
+      padding-bottom: 0.6rem;
+      display: inline-block;
+    }
+
+    .subhead {
+      font-size: 1.2rem;
+      font-weight: 380;
+      color: #3a546d;
+      margin-top: 0.5rem;
+      margin-bottom: 3.5rem;
+      border-left: 3px solid #9ab3cf;
+      padding-left: 1.2rem;
+    }
+
+    /* сетка кнопок — три колонки на десктопе, аккуратно */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin-bottom: 4rem;
+    }
+
+    /* карточка-кнопка: прозрачная, с аккуратной рамкой, при нажатии — переход */
+    .topic-card {
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      background: #ffffff;
+      border: 1px solid #dde5ed;
+      border-radius: 24px;
+      padding: 1.8rem 1.2rem 1.8rem 1.2rem;
+      box-shadow: 0 6px 12px -6px rgba(0, 20, 30, 0.06);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      cursor: pointer;
+      /* чтобы вся карточка была кликабельной — используем <a> */
+    }
+
+    .topic-card:hover {
+      border-color: #9fb7cc;
+      background: #ffffff;
+      box-shadow: 0 14px 22px -10px rgba(18, 52, 77, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .topic-card:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 8px -4px rgba(0,0,0,0.1);
+      border-color: #7c9eb9;
+    }
+
+    /* иконка — минимальный акцент (простая геометрия) */
+    .card-icon {
+      font-size: 2.3rem;
+      line-height: 1;
+      margin-bottom: 1.2rem;
+      opacity: 0.8;
+    }
+
+    .topic-card h2 {
+      font-weight: 500;
+      font-size: 1.7rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+      color: #153e5a;
+    }
+
+    .topic-card p {
+      font-size: 0.95rem;
+      color: #3f5e75;
+      font-weight: 380;
+      margin-bottom: 1.2rem;
+    }
+
+    /* маленькая стрелка-указатель — минималистичный намёк */
+    .arrow-hint {
+      align-self: flex-end;
+      margin-top: auto;
+      font-size: 1.4rem;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+    }
+
+    .topic-card:hover .arrow-hint {
+      opacity: 1;
+    }
+
+    /* вторая часть — пояснение (для завершённости) */
+    .info-section {
+      margin-top: 1.8rem;
+      padding: 1.8rem 2rem;
+      background: #ecf3f9;
+      border-radius: 28px;
+      border: 1px solid #cddde9;
+    }
+
+    .info-section p {
+      font-size: 1rem;
+      color: #1a364b;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-section .small-note {
+      font-size: 0.9rem;
+      color: #456278;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #cbdae6;
+      margin: 1.8rem 0 0.8rem 0;
+    }
+
+    /* футер — совсем лёгкий */
+    .footer {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: #5b7a93;
+      text-align: center;
+    }
+
+    /* адаптив: на телефонах всё в колонку */
+    @media (max-width: 600px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      h1 {
+        font-size: 2.6rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .topic-card {
+        padding: 1.8rem 1.5rem;
+      }
+      .subhead {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* все кнопки — это <a>, поэтому убираем подчёркивание */
+    a, a:visited, a:hover, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* дополнительный акцент для нажатия — плавно */
+    .topic-card:focus-visible {
+      outline: 3px solid #8eb3d0;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- заголовок — тема "как создать сайт" -->
+  <h1>создать сайт</h1>
+  <div class="subhead">три шага · нажми на карточку</div>
+
+  <!-- 
+    ГЛАВНЫЕ КНОПКИ-ПЕРЕХОДЫ 
+    Каждая карточка — это кликабельная ссылка (a). 
+    Нажатие переносит на соответствующую страницу внутри этого же сайта.
+  -->
+  <div class="card-grid">
+    
+    <!-- 1. Планирование -->
+    <a href="#plan" class="topic-card" id="card-plan">
+      <div class="card-icon">①</div>
+      <h2>план</h2>
+      <p>Структура, контент, цель. С чего начинается любой сайт.</p>
+      <span class="arrow-hint">→</span>
+    </a>
+
+    <!-- 2. Вёрстка / код -->
+    <a href="#build" class="topic-card" id="card-build">
+      <div class="card-icon">②</div>
+      <h2>вёрстка</h2>
+      <p>HTML, CSS и основа. Пишем чистый интерфейс.</p>
+      <span class="arrow-hint">→</span>
+    </a>
+
+    <!-- 3. Публикация -->
+    <a href="#publish" class="topic-card" id="card-publish">
+      <div class="card-icon">③</div>
+      <h2>публикация</h2>
+      <p>Домен, хостинг, GitHub Pages. Сайт в интернете.</p>
+      <span class="arrow-hint">→</span>
+    </a>
+  </div>
+
+  <!-- ДОПОЛНИТЕЛЬНЫЙ БЛОК — "КУДА ВЕДУТ КНОПКИ" — минималистичное пояснение -->
+  <div class="info-section">
+    <p><strong>↓ нажми на любую карточку выше — ты перейдёшь к разделу с подробностями.</strong></p>
+    <p style="margin-top: 0.75rem;">Этот сайт и есть демонстрация: три кнопки, каждая раскрывает один из этапов создания сайта.  
+    Всё в минимализме — без лишнего.</p>
+    <hr>
+    <div class="small-note">
+      <span>🖱️ кликабельные карточки →</span>
+      <span style="font-weight: 400;">#план, #вёрстка, #публикация</span>
+    </div>
+  </div>
+
+  <!-- 
+    ЯКОРНЫЕ РАЗДЕЛЫ (цели для кнопок)
+    Они же и представляют контент "как создать сайт". 
+    Стилистически продолжают минимализм.
+  -->
+  <div style="margin-top: 3.5rem;">
+    
+    <!-- секция ПЛАН -->
+    <section id="plan" style="scroll-margin-top: 2.5rem; margin-bottom: 3.8rem;">
+      <div style="display: flex; align-items: baseline; gap: 0.5rem; border-bottom: 1px solid #b7ccdd; padding-bottom: 0.4rem; margin-bottom: 1.2rem;">
+        <span style="font-size: 2rem; opacity: 0.8;">📋</span>
+        <h2 style="font-weight: 440; font-size: 2.1rem; letter-spacing: -0.01em; color: #103247;">1. планирование</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem;">
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">Цель и аудитория</p>
+          <p style="color: #254a64;">Определи, зачем нужен сайт: портфолио, блог, магазин. От этого зависит структура.</p>
+        </div>
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">Структура и контент</p>
+          <p style="color: #254a64;">Набросай схему страниц (главная, о себе, контакты). Подготовь тексты и изображения.</p>
+        </div>
+        <div style="grid-column: span 2;">
+          <p style="background: #e5edf5; padding: 0.8rem 1.2rem; border-radius: 18px; color:#173e58;">
+            <span style="font-weight: 500;">🟡 Совет:</span> даже простой рисунок на бумаге ускоряет вёрстку.
+          </p>
+        </div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <a href="#" style="font-size:0.9rem; border-bottom:1px dotted #6b8da8;">↑ наверх к кнопкам</a>
+      </div>
+    </section>
+
+    <!-- секция ВЁРСТКА / КОД -->
+    <section id="build" style="scroll-margin-top: 2.5rem; margin-bottom: 3.8rem;">
+      <div style="display: flex; align-items: baseline; gap: 0.5rem; border-bottom: 1px solid #b7ccdd; padding-bottom: 0.4rem; margin-bottom: 1.2rem;">
+        <span style="font-size: 2rem; opacity: 0.8;">🖥️</span>
+        <h2 style="font-weight: 440; font-size: 2.1rem; letter-spacing: -0.01em; color: #103247;">2. вёрстка и код</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem;">
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">HTML — каркас</p>
+          <p style="color: #254a64;">Заголовки, абзацы, кнопки. Семантика важна: header, main, footer.</p>
+        </div>
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">CSS — стиль</p>
+          <p style="color: #254a64;">Цвета, отступы, шрифты. Flexbox и Grid помогают сделать адаптив.</p>
+        </div>
+        <div style="grid-column: span 2;">
+          <p style="background: #e5edf5; padding: 0.8rem 1.2rem; border-radius: 18px; color:#173e58;">
+            <span style="font-weight: 500;">🟡 Инструменты:</span> редактор кода (VS Code), браузер с DevTools. Этот сайт написан на чистом HTML/CSS.
+          </p>
+        </div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <a href="#" style="font-size:0.9rem; border-bottom:1px dotted #6b8da8;">↑ наверх к кнопкам</a>
+      </div>
+    </section>
+
+    <!-- секция ПУБЛИКАЦИЯ -->
+    <section id="publish" style="scroll-margin-top: 2.5rem; margin-bottom: 2rem;">
+      <div style="display: flex; align-items: baseline; gap: 0.5rem; border-bottom: 1px solid #b7ccdd; padding-bottom: 0.4rem; margin-bottom: 1.2rem;">
+        <span style="font-size: 2rem; opacity: 0.8;">🌐</span>
+        <h2 style="font-weight: 440; font-size: 2.1rem; letter-spacing: -0.01em; color: #103247;">3. публикация</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem;">
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">Хостинг и домен</p>
+          <p style="color: #254a64;">GitHub Pages (бесплатно), Netlify или классический хостинг. Выбери имя сайта.</p>
+        </div>
+        <div>
+          <p style="font-weight: 450; margin-bottom: 0.5rem;">Выкладка файлов</p>
+          <p style="color: #254a64;">Загрузи index.html, стили и картинки. Проверь, что всё работает.</p>
+        </div>
+        <div style="grid-column: span 2;">
+          <p style="background: #e5edf5; padding: 0.8rem 1.2rem; border-radius: 18px; color:#173e58;">
+            <span style="font-weight: 500;">🟡 Быстрый старт:</span> этот сайт можно выложить через GitHub за пару минут.
+          </p>
+        </div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <a href="#" style="font-size:0.9rem; border-bottom:1px dotted #6b8da8;">↑ наверх к кнопкам</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- очень лёгкий футер -->
+  <div class="footer">
+    <span>проект по информатике · «как создать сайт» · минимализм</span>
+  </div>
+</div>
+
+<!-- маленький скрипт для плавной прокрутки при клике на якорные ссылки (кнопки-карточки уже якорные, 
+     но добавим мягкости для всех внутренних ссылок) + дополнительно сделаем, чтобы при клике на карточку 
+     не было резкого прыжка (уже есть scroll-margin). Но и так хорошо. -->
+<script>
+  (function() {
+    // плавный скролл для всех внутренних ссылок, начинающихся с #
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        // если это "#" (наверх) или реальный якорь
+        if (href === "#") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // обновляем URL без прыжка (опционально)
+          history.pushState(null, null, href);
+        }
+      });
+    });
+
+    // необязательно: чтобы кнопки-карточки тоже вели себя как ссылки, они уже <a>.
+    // дополнительно можно подкрасить активный раздел — но минимализм, оставим.
+  })();
+</script>
+
+<!-- гарантируем, что при переходе по ссылкам-якорям из карточек всё плавно -->
+</body>
+</html>
